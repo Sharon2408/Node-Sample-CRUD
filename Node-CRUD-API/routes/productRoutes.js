@@ -1,8 +1,9 @@
 const express = require("express");
-const app = express();
 const router = express.Router();
-app.use(express.json()); 
-const productController = require("../controllers/products")
+const productController = require("../controllers/productsController");
+const authenticateToken = require('../middlewares/authMiddleware');
+
+router.use(authenticateToken);
 
 router.route("/")
 .get(productController.getAllProducts)
@@ -12,7 +13,6 @@ router.route("/:id")
 .get(productController.getProductById)
 .put(productController.updateProduct)
 .delete(productController.deleteProduct);
-
 
 
 module.exports = router;
