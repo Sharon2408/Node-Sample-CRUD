@@ -50,8 +50,11 @@ exports.loginUser = async (req, res) => {
 } 
 
 
+
+
 exports.refreshToken = (req, res) => {
-    const refreshToken = req.cookies.refreshToken;
+ 
+    const refreshToken = req.body.refreshToken;
     if (!refreshToken) return res.sendStatus(401);
   
     jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET, (err, user) => {
@@ -61,8 +64,40 @@ exports.refreshToken = (req, res) => {
     });
   };    
 
+  exports.userDetail = async (req, res) => {
+    
+    try {
+        
+        const userId = await UserModel.getUserDetail(req.params.id);
+        if (!userId) {
+            return res.status(404).json({ message: 'User not found' });
+          }
+        res.status(200).json(userId)
+    }
+    catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
+
+
+exports.updateUser = async (req, res) => {
+    const { name, email } = req.body;
+    try {
+      const updated = await UserModel.update(req.params.id, name, email);
+      if (!updated) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+      res.json({ message: 'User data updated successfully' });
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  };
+
 
   exports.logoutUser = (req, res) => {
     res.clearCookie('refreshToken');
     res.sendStatus(204);
   };
+
+
+

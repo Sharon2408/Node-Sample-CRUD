@@ -1,1 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+
+.p-card {
+  margin: 1rem !important;
+}
+
+.min-h-screen {
+  min-height: 100vh !important;
+}
+
+.p-menubar {
+  padding: 10px !important;
+  background: rgb(255, 255, 255) !important;
+  color: rgb(0, 0, 0) !important;
+  border: none !important;
+  border-radius: 5px !important;
+}
+
+/* .col-10{
+  padding: 0% !important;
+} */

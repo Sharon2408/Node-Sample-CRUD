@@ -1,0 +1,56 @@
+/* Sidebar transitions */
+.side-nav {
+    transition: width 0.5s, padding 0.6s;
+    background-color: #37404c;
+    width: 280px; /* default width when expanded */
+}
+
+.side-nav.collapsed {
+    width: 0px; /* collapsed width */
+    overflow: hidden; /* hide content that overflows the smaller width */
+    padding: 0rem; /* optional: reduce padding when collapsed */
+    
+}
+
+/* Optionally hide text in collapsed mode */
+.side-nav.collapsed a {
+    font-size: 0; /* hide text while keeping icons visible */
+}
+
+/* Content area transitions */
+.content-area {
+    transition: width 0.5s;
+}
+
+/* Adjust padding or visibility when collapsed */
+.content-area.col-10 {
+    width: calc(100% - 280px); /* adjust for full width when sidebar is expanded */
+}
+
+.content-area.col-12 {
+    width: calc(100% - 60px); /* adjust for full width when sidebar is collapsed */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,17 @@
+<div class="">
+    <p-menubar [model]="items" class="">
+        <ng-template pTemplate="start" *ngIf="hamIcon">
+            <div class="flex align-items-center cursor-pointer"  (click)="toggleSideNav.emit()">
+                <i class="pi pi-bars" *ngIf="isLogged" style="font-size: 1.3rem"></i>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="end">
+            <div class="flex align-items-center gap-2" >
+                <p-button class="flex align-items-center" label="Sign In" routerLink="/auth/login"  *ngIf="!isLogged" [text]="true" [raised]="true" [rounded]="true"  icon="pi pi-user" />
+                <p-button class="flex align-items-center" label="Sign Up" routerLink="/auth/register" *ngIf="!isLogged" [text]="true" [raised]="true" [rounded]="true"  icon="pi pi-user-plus" />
+                <!-- <p-button class="flex align-items-center" label="Logout"  (click)="logout()" *ngIf="isLogged"  [text]="true" [raised]="true" [rounded]="true"  icon="pi pi-user" /> -->
+            </div>
+        </ng-template>
+    </p-menubar>
+</div>
+

@@ -1,0 +1,41 @@
+<div class="flex justify-content-center align-items-center min-h-screen">
+    <div class="grid">
+        <div class="lg:col">
+            <p-card header="" class="">
+                <div class="text-center mb-5">
+                    <img src="assets/images/hyper.svg" alt="Image" height="50" class="mb-3">
+                    <div class="text-900 text-3xl font-medium mb-3">Welcome Back</div>
+                    <span class="text-600 font-medium line-height-3">Don't have an account?</span>
+                    <a class="font-medium no-underline ml-2 text-blue-500 cursor-pointer" routerLink="/auth/register">Create today!</a>
+                </div>
+                <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+                    <div class="p-fluid formgrid grid">
+                        <div class="field col-12">
+                            <label for="email">Email</label>
+                            <input pInputText id="email" formControlName="email" placeholder="Enter your email" />
+                            <small *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].touched"
+                                class="p-error">
+                                Enter a valid email
+                            </small>
+                        </div>
+
+                        <div class="field col-12">
+                            <label for="password">Password</label>
+                            <p-password id="password" formControlName="password" placeholder="Enter your password" feedback="false" [toggleMask]="true"></p-password>
+                            <small
+                                *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched"
+                                class="p-error">
+                                Password is required
+                            </small>
+                        </div>
+
+                        <div class="col-12">
+                            <button pButton type="submit" label="Login" class="w-full"
+                                [disabled]="loginForm.invalid"></button>
+                        </div>
+                    </div>
+                </form>
+            </p-card>
+        </div>
+    </div>
+</div>
