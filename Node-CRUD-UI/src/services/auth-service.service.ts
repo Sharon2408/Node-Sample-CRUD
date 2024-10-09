@@ -84,7 +84,7 @@ export class AuthService {
   }
 
 
-  getUserDetail() {
+  getUserDetail():Observable<UserDetail> {
     const token = this.getAccessToken();
     var decodeToken: any;
     if (token) {
@@ -96,4 +96,11 @@ export class AuthService {
   updateUser(user:UserDetail){
     return this.http.put(`${this.authUrl}/auth/update-user-detail/${user.id}`,user)
   }
+
+  uploadFile(file: File,id:number): Observable<any> {
+    const formData = new FormData();
+    formData.append('profileImage', file, file.name);
+    return this.http.post(`${this.authUrl}/auth/upload-profile/${id}`, formData);
+  }
+  
 }

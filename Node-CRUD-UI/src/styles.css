@@ -19,3 +19,12 @@
 /* .col-10{
   padding: 0% !important;
 } */
+
+.card,
+.p-paginator {
+  border: none !important;
+}
+
+a {
+  text-decoration: none !important;
+}

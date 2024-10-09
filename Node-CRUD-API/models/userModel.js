@@ -15,7 +15,7 @@ exports.createUser = async (name, email, password) => {
   };
 
   exports.getUserDetail = async (id) => {
-    const [rows] = await pool.query('SELECT id,name,email FROM users WHERE id = ?', [id]);
+    const [rows] = await pool.query('SELECT id,name,email,profile_image FROM users WHERE id = ?', [id]);
     return rows[0];
   };
 
@@ -26,3 +26,21 @@ exports.createUser = async (name, email, password) => {
     );
     return result.affectedRows > 0;
   };
+
+  exports.updateUserProfileImage = async (userId, profileImagePath) => {
+    try {
+      // Perform the update query
+      const [result] = await pool.query(
+        'UPDATE users SET profile_image = ? WHERE id = ?',
+        [profileImagePath, userId]
+      );
+  
+      // Return the result
+      return result;
+    } catch (error) {
+      // Throw the error so it can be caught in the calling function
+      throw error;
+    }
+  };
+
+ 

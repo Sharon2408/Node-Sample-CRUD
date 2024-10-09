@@ -9,7 +9,7 @@ exports.getAll = async () => {
 
 // Get product by ID
 exports.getById = async (id) => {
-  const [rows] = await pool.query('SELECT * FROM products WHERE id = ?', [id]);
+  const [rows] = await pool.query('SELECT * FROM products WHERE id = ? ', [id]);
   return rows[0];
 };
 

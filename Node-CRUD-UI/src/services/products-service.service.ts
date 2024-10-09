@@ -21,5 +21,9 @@ export class ProductsService {
   }
 
 
+  public createProduct(product:Products){
+    return  this.http.post<Products>(`${this.apiUrl}/products`, product)
+  }
+
 
 }

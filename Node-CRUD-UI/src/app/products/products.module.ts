@@ -7,6 +7,7 @@ import { TableModule } from 'primeng/table';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { InputTextModule } from 'primeng/inputtext';
     FormsModule,
     ReactiveFormsModule,
     ButtonModule,
-    InputTextModule
+    InputTextModule,
+    DialogModule
   ]
 })
 export class ProductsModule { }

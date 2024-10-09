@@ -1,7 +1,8 @@
 require("dotenv").config();
 const express = require("express");
-
 const app = express();
+const multer = require('multer');
+const path = require('path');
 const port = process.env.PORT;
 app.use(express.json());
 
@@ -17,7 +18,7 @@ const corsOptions = {
 };
 
 app.use('*',cors(corsOptions));
-
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/api/products', productRoutes);
 app.use('/auth',authRoutes);
 
