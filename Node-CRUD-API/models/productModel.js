@@ -39,6 +39,8 @@ exports.delete = async (id) => {
 
 
 exports.getProductsPaginated = async (limit, offset) => {
+ // console.log(`SELECT * FROM products LIMIT ${limit} OFFSET ${offset}`);
+  
   const [products] = await pool.query('SELECT * FROM products LIMIT ? OFFSET ?', [limit, offset]);
   return products;
 };

@@ -2,7 +2,7 @@
     <p-button (onClick)="visible = true" icon="pi pi-plus" label="Add" styleClass="mt-3 float-right right-auto"
         severity="secondary" />
     <br><br>
-    <p-table [value]="products" [rows]="10" [paginator]="true" [rowHover]="true" dataKey="id" editMode="row"
+    <p-table [value]="productsTable" [rows]="10" [paginator]="true" [totalRecords]="productsTable.length" [rowHover]="true" dataKey="id" editMode="row"
         [tableStyle]="{'min-width': '50rem'}">
         <ng-template pTemplate="header">
             <tr>
@@ -129,7 +129,7 @@
 
     </div>
     <div class="card flex justify-content-center">
-        <p-paginator [first]="first" [rows]="rows" (onPageChange)="onPageChange($event)" [totalRecords]="22" />
+        <p-paginator [first]="first" [rows]="cardRows" (onPageChange)="onPageChange($event)" [totalRecords]="22" />
     </div>
 </ng-container>
 

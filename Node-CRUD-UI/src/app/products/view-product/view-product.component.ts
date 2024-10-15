@@ -11,10 +11,11 @@ import { ProductsService } from 'src/services/products-service.service';
 })
 export class ViewProductComponent implements OnInit {
   products: Products[] = [];
+  productsTable: Products[] = [];
   productForm!: FormGroup;
   visible: boolean = false;
   first: number = 1;
-  rows: number = 12;
+  cardRows: number = 12;
   currentPage: number = 1;
   totalPages: number = 0;
   userDetail: UserDetail = {
@@ -28,7 +29,7 @@ export class ViewProductComponent implements OnInit {
 
   constructor(private productService: ProductsService, private fb: FormBuilder, public authService: AuthService) { }
   ngOnInit(): void {
-    this.getProducts(this.currentPage,this.rows);
+    this.getProducts(this.currentPage,this.cardRows);
     this.initForm();
     this.getUserDetail();
   }
@@ -63,6 +64,7 @@ export class ViewProductComponent implements OnInit {
     this.productService.getProducts(page,rows).subscribe({
       next: (data: any) => {
         this.products = data.products;
+        this.productsTable = data.totalProducts;
         this.currentPage = data.currentPage;
         this.totalPages = data.totalPages;
       }
@@ -79,13 +81,13 @@ export class ViewProductComponent implements OnInit {
     this.productService.editProduct(product, product.id).subscribe({
       next: (res) => {
         console.log(res);
-        this.getProducts(this.currentPage,this.rows);
+        this.getProducts(this.currentPage,this.cardRows);
       }
     })
   }
 
   onRowEditCancel(product: Products, index: number) {
-    this.getProducts(this.currentPage,this.rows);
+    this.getProducts(this.currentPage,this.cardRows);
 
     //   delete this.clonedProducts[product.id as string];
   }
@@ -101,7 +103,7 @@ export class ViewProductComponent implements OnInit {
           console.log('Product created successfully:', response);
           // Optionally reset the form after successful submission
           this.productForm.reset();
-          this.getProducts(this.currentPage,this.rows);
+          this.getProducts(this.currentPage,this.cardRows);
         },
         error: (error) => {
           console.error('Error creating product:', error);
@@ -113,7 +115,7 @@ export class ViewProductComponent implements OnInit {
   }
 
   onPageChange(event: PageEvent | any): void {
-    this.getProducts(event.page,this.rows);
+    this.getProducts(event.page+1,this.cardRows);
   }
 
 

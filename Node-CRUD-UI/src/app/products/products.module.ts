@@ -4,17 +4,19 @@ import { CommonModule } from '@angular/common';
 import { ProductsRoutingModule } from './products-routing.module';
 import { ViewProductComponent } from './view-product/view-product.component';
 import { TableModule } from 'primeng/table';
-import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { DialogModule } from 'primeng/dialog';
 import { CardModule } from 'primeng/card';
 import { PaginatorModule } from 'primeng/paginator';
-
+import { ViewSingleProductComponent } from './view-single-product/view-single-product.component';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 @NgModule({
   declarations: [
-    ViewProductComponent
+    ViewProductComponent,
+    ViewSingleProductComponent
   ],
   imports: [
     CommonModule,
@@ -27,6 +29,7 @@ import { PaginatorModule } from 'primeng/paginator';
     DialogModule,
     CardModule,
     PaginatorModule,
+    InputNumberModule,
   ]
 })
 export class ProductsModule { }
