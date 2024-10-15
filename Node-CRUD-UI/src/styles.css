@@ -13,12 +13,12 @@
   background: rgb(255, 255, 255) !important;
   color: rgb(0, 0, 0) !important;
   border: none !important;
-  border-radius: 5px !important;
+  border-radius: 0px !important;
 }
 
-/* .col-10{
-  padding: 0% !important;
-} */
+.col-10,.col-12{
+  padding: 0rem !important;
+}
 
 .card,
 .p-paginator {
@@ -27,4 +27,9 @@
 
 a {
   text-decoration: none !important;
+}
+
+
+.p-button{
+  box-shadow: none !important;
 }

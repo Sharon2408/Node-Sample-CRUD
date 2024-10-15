@@ -21,6 +21,12 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { ButtonModule } from 'primeng/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SideBarComponent } from './side-bar/side-bar.component';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
+import { TooltipModule } from 'primeng/tooltip';
+import { NotfoundComponent } from './notfound/notfound.component';
+import { FooterComponent } from './footer/footer.component';
+
 
 
 
@@ -31,6 +37,8 @@ import { SideBarComponent } from './side-bar/side-bar.component';
     AppLayoutComponent,
     LandingPageComponent,
     SideBarComponent,
+    NotfoundComponent,
+    FooterComponent,
     
   ],
   imports: [
@@ -48,7 +56,10 @@ import { SideBarComponent } from './side-bar/side-bar.component';
     PanelModule,
     CardModule,
     ButtonModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    IconFieldModule,
+    InputIconModule,
+    TooltipModule
   ],
   providers: [MessageService,{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }],
   bootstrap: [AppComponent]

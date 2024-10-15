@@ -7,19 +7,21 @@ import {
   HttpErrorResponse
 } from '@angular/common/http';
 import { Observable, throwError, BehaviorSubject } from 'rxjs';
-import { catchError, switchMap, filter, take } from 'rxjs/operators';
+import { catchError, switchMap} from 'rxjs/operators';
 import { AuthService } from 'src/services/auth-service.service';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
   private isRefreshing = false;
   private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService,private router:Router) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const accessToken = this.authService.getAccessToken();
 
+//console.log(request);
 
     // Clone the request to add the authorization header
 
@@ -56,8 +58,7 @@ export class TokenInterceptor implements HttpInterceptor {
     this.refreshTokenSubject.next(null);
 
     const refreshToken = this.authService.getRefreshToken();
-    
-    
+   
     if (!refreshToken) {
       return throwError('No refresh token available');
     }
@@ -65,13 +66,15 @@ export class TokenInterceptor implements HttpInterceptor {
     return this.authService.requestNewAccessToken(refreshToken).pipe(
       switchMap((response: any) => {
         this.isRefreshing = false;
-        this.authService.setTokens(response.accessToken, response.refreshToken); // Save new tokens
+        this.authService.setTokens(response.accessToken,refreshToken); // Save new tokens
         this.refreshTokenSubject.next(response.accessToken);
         return next.handle(this.addTokenToRequest(request, response.accessToken));
       }),
       catchError((err) => {
         this.isRefreshing = false;
-        this.authService.clearTokens(); // Clear tokens if refreshing fails
+        this.authService.clearTokens();
+        this.authService.changeAuthStatus(false);
+        this.router.navigateByUrl('/auth/login');
         return throwError(err);
       })
     );

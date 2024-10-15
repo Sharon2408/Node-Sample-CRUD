@@ -12,17 +12,18 @@ export class AppLayoutComponent implements OnInit {
   isLogged!: boolean;
 
   constructor(public authService: AuthService, private router: Router) { }
-  
+
   ngOnInit(): void {
-    this.authService.authStatus.subscribe({
+    this.authService.authStatus$.subscribe({
       next: (res) => {
         this.isLogged = res;
+        this.sideNavCollapsed = res;
       }
     })
   }
 
   toggleSideNav() {
-  return  this.sideNavCollapsed = !this.sideNavCollapsed;
+    return this.sideNavCollapsed = !this.sideNavCollapsed;
   }
 
 }

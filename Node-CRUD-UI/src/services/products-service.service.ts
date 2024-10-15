@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Products } from 'src/app/products/view-product/view-product.component';
+import { PageEvent, Products } from 'src/app/products/view-product/view-product.component';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -12,8 +12,8 @@ export class ProductsService {
 
   private apiUrl = environment.apiUrl;
 
-  public getProducts() {
-    return this.http.get<Products[]>(`${this.apiUrl}/products`)
+  public getProducts(page: PageEvent|any,rows:number) {
+    return this.http.get<Products>(`${this.apiUrl}/products?page=${page}&noOfRecords=${rows}`)
   }
 
   public editProduct(product: Products, id: number) {

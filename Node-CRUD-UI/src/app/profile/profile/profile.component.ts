@@ -18,7 +18,8 @@ export class ProfileComponent implements OnInit {
     id: 0,
     name: '',
     email: '',
-    profile_image: ''
+    profile_image: '',
+    isAdmin:0
   };
 
   apiUrl = environment.authUrl;
@@ -76,6 +77,7 @@ export class ProfileComponent implements OnInit {
         .subscribe({
           next: (response) => {
             console.log('Upload success:', response);
+            this.authService.userSubject.next(true);
             // Refresh user detail to reflect the uploaded image
             this.getUserDetail();
           },
@@ -97,9 +99,13 @@ export class ProfileComponent implements OnInit {
       this.authService.updateUser(updatedUserData).subscribe({
         next: (res) => {
           console.log('User details updated successfully');
+          this.authService.userSubject.next(true);
         },
         error: (err) => {
           console.error('Error updating user details', err);
+        },
+        complete:()=>{
+          
         }
       });
     } else {
@@ -123,5 +129,6 @@ export interface UserDetail {
   name: string;
   email: string;
   profile_image: string;
+  isAdmin:number;
 }
 

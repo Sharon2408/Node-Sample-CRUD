@@ -1,11 +1,9 @@
-<div class="card">
-    <p-button 
-    (onClick)="visible = true"
-    icon="pi pi-arrow-down" 
-    label="Add" 
-    severity="secondary" />
+<div class="card p-0" *ngIf="authService.getRole() == '1'">
+    <p-button (onClick)="visible = true" icon="pi pi-plus" label="Add" styleClass="mt-3 float-right right-auto"
+        severity="secondary" />
     <br><br>
-    <p-table [value]="products" [rows]="8"  [paginator]="true" [rowHover]="true" dataKey="id" editMode="row" [tableStyle]="{'min-width': '50rem'}">
+    <p-table [value]="products" [rows]="10" [paginator]="true" [rowHover]="true" dataKey="id" editMode="row"
+        [tableStyle]="{'min-width': '50rem'}">
         <ng-template pTemplate="header">
             <tr>
                 <th style="width:20%">Name</th>
@@ -19,9 +17,7 @@
                 <td>
                     <p-cellEditor>
                         <ng-template pTemplate="input">
-                            <input 
-                                pInputText type="text" 
-                                [(ngModel)]="product.name" />
+                            <input pInputText type="text" [(ngModel)]="product.name" />
                         </ng-template>
                         <ng-template pTemplate="output">
                             {{product.name}}
@@ -31,10 +27,7 @@
                 <td>
                     <p-cellEditor>
                         <ng-template pTemplate="input">
-                            <input 
-                                pInputText type="text" 
-                                [(ngModel)]="product.description" 
-                                required />
+                            <input pInputText type="text" [(ngModel)]="product.description" required />
                         </ng-template>
                         <ng-template pTemplate="output">
                             {{product.description}}
@@ -44,47 +37,27 @@
                 <td>
                     <p-cellEditor>
                         <ng-template pTemplate="input">
-                            <input 
-                                pInputText type="text" 
-                                [(ngModel)]="product.price" />
+                            <input pInputText type="text" [(ngModel)]="product.price" />
                         </ng-template>
                         <ng-template pTemplate="output">
-                            {{product.price | currency: 'USD'}}
+                            {{product.price | currency: 'INR'}}
                         </ng-template>
                     </p-cellEditor>
                 </td>
                 <td>
-            <div class="flex align-items-center  justify-content-center gap-2">
-                <button 
-                    *ngIf="!editing" 
-                    pButton 
-                    pRipple 
-                    type="button" 
-                    pInitEditableRow 
-                    icon="pi pi-pencil" 
-                    (click)="onRowEditInit(product)" 
-                    class="p-button-rounded p-button-text">
-                </button>
-                <button 
-                    *ngIf="editing" 
-                    pButton 
-                    pRipple 
-                    type="button" 
-                    pSaveEditableRow 
-                    icon="pi pi-check" 
-                    (click)="onRowEditSave(product)" 
-                    class="p-button-rounded p-button-text p-button-success mr-2">
-                </button>
-                <button 
-                    *ngIf="editing" 
-                    pButton pRipple 
-                    type="button" 
-                    pCancelEditableRow 
-                    icon="pi pi-times" 
-                    (click)="onRowEditCancel(product, ri)" 
-                    class="p-button-rounded p-button-text p-button-danger">
-                </button>
-            </div>
+                    <div class="flex align-items-center  justify-content-center gap-2">
+                        <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil"
+                            (click)="onRowEditInit(product)" class="p-button-rounded p-button-text">
+                        </button>
+                        <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check"
+                            (click)="onRowEditSave(product)"
+                            class="p-button-rounded p-button-text p-button-success mr-2">
+                        </button>
+                        <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times"
+                            (click)="onRowEditCancel(product, ri)"
+                            class="p-button-rounded p-button-text p-button-danger">
+                        </button>
+                    </div>
                 </td>
             </tr>
         </ng-template>
@@ -92,43 +65,89 @@
 </div>
 
 
-<p-dialog 
-    header="Add Product" 
-    [modal]="true"
-    [(visible)]="visible" 
-    [position]="'top'" 
-    [style]="{ width: '25rem' }">
+<p-dialog header="Add Product" [modal]="false" [(visible)]="visible" [position]="'top'" [style]="{ width: '25rem' }">
 
     <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
 
-        
+
 
         <!-- Name Field -->
         <div class="flex align-items-center gap-3 mb-3 mt-3">
-          <label for="inputName" class="font-semibold w-6rem">Name</label>
-          <input pInputText class="flex-auto" autocomplete="off" id="inputName" formControlName="name" placeholder="Enter product name"/>
-          <small *ngIf="name?.invalid && name?.touched" severity="error" text="Name is required and must be at least 3 characters."></small>
+            <label for="inputName" class="font-semibold w-6rem">Name</label>
+            <input pInputText class="flex-auto" autocomplete="off" id="inputName" formControlName="name"
+                placeholder="Enter product name" />
+            <small *ngIf="name?.invalid && name?.touched" severity="error"
+                text="Name is required and must be at least 3 characters."></small>
         </div>
-      
+
         <!-- Description Field -->
         <div class="flex align-items-center gap-3 mb-3">
-          <label for="inputDescription" class="font-semibold w-6rem">Description</label>
-          <input pInputText class="flex-auto" autocomplete="off" id="inputDescription" formControlName="description" placeholder="Enter product description" rows="5"/>
-          <small *ngIf="description?.invalid && description?.touched" severity="error" text="Description is required."></small>
+            <label for="inputDescription" class="font-semibold w-6rem">Description</label>
+            <input pInputText class="flex-auto" autocomplete="off" id="inputDescription" formControlName="description"
+                placeholder="Enter product description" rows="5" />
+            <small *ngIf="description?.invalid && description?.touched" severity="error"
+                text="Description is required."></small>
         </div>
-      
+
         <!-- Price Field -->
         <div class="flex align-items-center gap-3 mb-3">
-          <label for="inputPrice" class="font-semibold w-6rem">Price</label>
-          <input pInputText class="flex-auto" autocomplete="off" id="inputPrice" formControlName="price" placeholder="Enter product price" [min]="0.01"/>
-          <small *ngIf="price?.invalid && price?.touched" severity="error" text="Price is required and must be greater than 0."></small>
+            <label for="inputPrice" class="font-semibold w-6rem">Price</label>
+            <input pInputText class="flex-auto" autocomplete="off" id="inputPrice" formControlName="price"
+                placeholder="Enter product price" [min]="0.01" />
+            <small *ngIf="price?.invalid && price?.touched" severity="error"
+                text="Price is required and must be greater than 0."></small>
         </div>
-      
+
         <div class="flex justify-content-end gap-2">
             <p-button label="Cancel" severity="secondary" (onClick)="visible = false" />
-            <p-button  (onClick)="visible = false" type="submit"  label="Submit" [disabled]="productForm.invalid" />
+            <p-button (onClick)="visible = false" type="submit" label="Submit" [disabled]="productForm.invalid" />
         </div>
-      </form>
-      
-        
+    </form>
+
+
 </p-dialog>
+
+
+<!-- View Products -->
+<ng-container *ngIf="authService.getRole() == '0'">
+    <div class="grid justify-content-center">
+
+        <div class="surface-section px-4 py-8 md:px-6 lg:px-8">
+            <div class="grid -mt-3 -ml-3 -mr-3">
+                <div *ngFor="let product of products;let i = index"
+                    class="col-12 md:col-6 lg:col-4 xl:col-2 border-bottom-1 surface-border md:border-bottom-none">
+                    <div class="p-2"><img src="/assets/images/product-list-3-{{ (i % 6) + 1 }}.png" height="80%"
+                            class="w-full mb-3">
+                        <div class="text-900 text-xl font-medium mb-2">{{product.price | currency:'INR'}}</div>
+                        <div class="mb-2"><span class="text-600 line-through">{{product.price |
+                                currency:'INR'}}</span><span class="ml-2 text-pink-500 font-medium">%25</span></div>
+                        <span class="text-900">{{product.name}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="card flex justify-content-center">
+        <p-paginator [first]="first" [rows]="rows" (onPageChange)="onPageChange($event)" [totalRecords]="22" />
+    </div>
+</ng-container>
+
+
+<!-- Loop through the products and create a column for each product -->
+<!-- <div class="sm:col  md:col lg:col-6 xl:col-3" *ngFor="let product of products"> -->
+<!-- <div class="card flex justify-content-center">
+                <p-card header="{{product.name}}" subheader="{{product.price | currency:'INR'}}"
+                    [style]="{ width: '100%' }">
+                    <ng-template pTemplate="header">
+                        <img alt="Card" src="/assets/images/card-ng.jpg" />
+                    </ng-template>
+                    <p>{{product.description}}</p>
+                    <ng-template pTemplate="footer">
+                        <div class="flex gap-3 mt-1">
+                            <p-button label="Cancel" severity="secondary" class="w-full" styleClass="w-full" />
+                            <p-button label="Save" class="w-full" styleClass="w-full" />
+                        </div>
+                    </ng-template>
+                </p-card>
+            </div> -->

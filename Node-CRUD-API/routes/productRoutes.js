@@ -3,7 +3,7 @@ const router = express.Router();
 const productController = require("../controllers/productsController");
 const authenticateToken = require('../middlewares/authMiddleware');
 
-router.use(authenticateToken);
+router.use(authenticateToken.authenticateToken);
 
 router.route("/")
 .get(productController.getAllProducts)

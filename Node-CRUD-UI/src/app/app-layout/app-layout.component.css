@@ -1,56 +1,36 @@
-/* Sidebar transitions */
 .side-nav {
     transition: width 0.5s, padding 0.6s;
     background-color: #37404c;
-    width: 280px; /* default width when expanded */
+    width: 280px;
 }
 
 .side-nav.collapsed {
-    width: 0px; /* collapsed width */
-    overflow: hidden; /* hide content that overflows the smaller width */
-    padding: 0rem; /* optional: reduce padding when collapsed */
-    
+    width: 0px;
+    overflow: hidden;
+    padding: 0rem;
+
 }
 
-/* Optionally hide text in collapsed mode */
 .side-nav.collapsed a {
-    font-size: 0; /* hide text while keeping icons visible */
+    font-size: 0;
 }
 
-/* Content area transitions */
 .content-area {
     transition: width 0.5s;
 }
 
-/* Adjust padding or visibility when collapsed */
 .content-area.col-10 {
-    width: calc(100% - 280px); /* adjust for full width when sidebar is expanded */
+    width: calc(100% - 280px);
 }
 
 .content-area.col-12 {
-    width: calc(100% - 60px); /* adjust for full width when sidebar is collapsed */
+    width: 100%;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.footer {
+    position: absolute;  /* Positioned relative to its nearest positioned ancestor */
+    bottom: 0;           /* Stick to the bottom */
+    width: 100%;         /* Full width of the page */
+    height: auto;        /* Adjust height based on content */
+    background-color: #f8f9fa; /* Optional background color for visibility */
+}

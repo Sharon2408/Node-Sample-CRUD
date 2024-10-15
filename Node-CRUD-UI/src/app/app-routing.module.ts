@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppLayoutComponent } from './app-layout/app-layout.component';
 import { authGuard } from 'src/guards/auth.guard';
 import { LandingPageComponent } from './landing-page/landing-page.component';
+import { NotfoundComponent } from './notfound/notfound.component';
 
 
 
@@ -32,7 +33,7 @@ const routes: Routes = [
     ]
   },
   { path: 'home', component: LandingPageComponent },
-  { path: '**', redirectTo: '/auth/login' }
+  { path: '**', component: NotfoundComponent }
 ];
 
 @NgModule({

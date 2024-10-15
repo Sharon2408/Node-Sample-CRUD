@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { jwtDecode } from 'jwt-decode';
 import { UserDetail } from 'src/app/profile/profile/profile.component';
@@ -9,8 +9,13 @@ import { UserDetail } from 'src/app/profile/profile/profile.component';
 })
 export class AuthService {
 
-  isLogged: BehaviorSubject<boolean> = new BehaviorSubject(this.getToken())
-  authStatus = this.isLogged.asObservable();
+  isLogged: BehaviorSubject<boolean> = new BehaviorSubject(this.getToken());
+  userSubject = new BehaviorSubject<boolean>(false);
+
+  user$ = this.userSubject.asObservable();
+  authStatus$ = this.isLogged.asObservable();
+
+
 
   private authUrl = environment.authUrl;
   private apiUrl = environment.apiUrl;
@@ -39,7 +44,12 @@ export class AuthService {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
-    });
+    })
+      .pipe(
+        tap(() => {
+          this.userSubject.next(true); // Emit updated user detail
+        })
+      );
   }
 
   getToken() {
@@ -67,15 +77,29 @@ export class AuthService {
 
   // Check if the access token is expired
   isTokenExpired(token: string): boolean {
-    const decodedToken: any = jwtDecode(token);
+    const decodedToken: any = this.decodeToken(token);
     const expirationDate = decodedToken.exp * 1000; // exp is in seconds, so convert to milliseconds
     return expirationDate < Date.now();
+  }
+
+  decodeToken(token: string | null): any {
+    try {
+      if (token)
+        return jwtDecode(token);
+    } catch (error) {
+      console.error('Invalid token', error);
+      return null;
+    }
   }
 
   // Request a new access token using the refresh token
   requestNewAccessToken(refreshToken: string): Observable<any> {
     const payload = { refreshToken };
-    return this.http.post(`${this.authUrl}/auth/refresh-token`, payload);
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${refreshToken}`,
+      'Content-Type': 'application/json'
+    });
+    return this.http.post(`${this.authUrl}/auth/refresh-token`, payload, { headers });
   }
 
   clearTokens() {
@@ -84,23 +108,35 @@ export class AuthService {
   }
 
 
-  getUserDetail():Observable<UserDetail> {
+  getUserDetail(): Observable<UserDetail> {
     const token = this.getAccessToken();
     var decodeToken: any;
     if (token) {
       decodeToken = jwtDecode(token);
     }
-   return this.http.get<UserDetail>(`${this.authUrl}/auth/user-detail/${decodeToken.id}`);
+    return this.http.get<UserDetail>(`${this.authUrl}/auth/user-detail/${decodeToken.id}`);
   }
 
-  updateUser(user:UserDetail){
-    return this.http.put(`${this.authUrl}/auth/update-user-detail/${user.id}`,user)
+
+
+  updateUser(user: UserDetail): Observable<any> {
+    return this.http.put(`${this.authUrl}/auth/update-user-detail/${user.id}`, user)
+      .pipe(
+        tap(() => {
+          this.userSubject.next(true); // Emit updated user detail
+        })
+      );
   }
 
-  uploadFile(file: File,id:number): Observable<any> {
+  uploadFile(file: File, id: number): Observable<any> {
     const formData = new FormData();
     formData.append('profileImage', file, file.name);
     return this.http.post(`${this.authUrl}/auth/upload-profile/${id}`, formData);
   }
-  
+
+
+  getRole(): string | null {
+    const role = sessionStorage.getItem("role");
+    return role;
+  }
 }

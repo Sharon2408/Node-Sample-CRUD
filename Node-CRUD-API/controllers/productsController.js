@@ -4,8 +4,20 @@ const productModel = require('../models/productModel');
 // Get all products
 exports.getAllProducts = async (req, res) => {
   try {
-    const products = await productModel.getAll();
-    res.json(products);
+    const totalProducts = await productModel.getAll();
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.noOfRecords);
+    const offset = (page - 1) * limit;
+    const totalPages = Math.ceil(totalProducts / limit);
+    const products = await productModel.getProductsPaginated(limit, offset);
+  
+    res.json({
+      products:products,
+      currentPage: page,
+      totalPages:totalPages,
+      totalProducts:totalProducts
+  });
+
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -26,7 +38,7 @@ exports.getProductById = async (req, res) => {
 
 // Create a new product
 exports.createProduct = async (req, res) => {
-   // console.log('Request Body:', req.body.name);
+  // console.log('Request Body:', req.body.name);
   const { name, description, price } = req.body;
   try {
     const productId = await productModel.create(name, description, price);

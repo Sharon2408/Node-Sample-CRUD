@@ -10,7 +10,6 @@ import { AuthService } from 'src/services/auth-service.service';
 })
 export class NavbarComponent implements OnInit {
 
-  items: any[] | undefined;
   isLogged!: boolean;
 
   @Output() toggleSideNav: EventEmitter<void> = new EventEmitter();
@@ -19,7 +18,7 @@ export class NavbarComponent implements OnInit {
   constructor(public authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
-    this.authService.authStatus.subscribe({
+    this.authService.authStatus$.subscribe({
       next: (res) => {
         this.isLogged = res;
       }

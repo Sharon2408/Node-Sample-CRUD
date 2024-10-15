@@ -11,7 +11,7 @@ const authRoutes = require("./routes/authRoutes");
 const cors = require('cors');
 
 const corsOptions = {
-  origin: 'http://localhost:4200', 
+  origin: ['http://localhost:4200','https://xdv9fcrt-4200.inc1.devtunnels.ms'], 
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization'],
   credentials: true  
