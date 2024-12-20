@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserDetail } from 'src/app/profile/profile/profile.component';
+import { environment } from 'src/environments/environment';
+import { PageEvent, Products } from 'src/models/products-model';
 import { AuthService } from 'src/services/auth-service.service';
 import { ProductsService } from 'src/services/products-service.service';
 
@@ -12,6 +14,9 @@ import { ProductsService } from 'src/services/products-service.service';
 export class ViewProductComponent implements OnInit {
   products: Products[] = [];
   productsTable: Products[] = [];
+  productImages: string[] | void = [];
+  imagePreviews: string[] = [];
+  selectedImages: File[] = [];
   productForm!: FormGroup;
   visible: boolean = false;
   first: number = 1;
@@ -25,23 +30,28 @@ export class ViewProductComponent implements OnInit {
     profile_image: '',
     isAdmin: 0
   };
+  apiUrl = environment.authUrl;
+  @ViewChild('productFile') productFile!: ElementRef;
 
+  // Error message for file type validation
+  fileTypeError: string = '';
 
   constructor(private productService: ProductsService, private fb: FormBuilder, public authService: AuthService) { }
+
   ngOnInit(): void {
-    this.getProducts(this.currentPage,this.cardRows);
+    this.getProducts(this.currentPage, this.cardRows);
     this.initForm();
     this.getUserDetail();
   }
 
 
-
+  load() {
+    this.productFile.nativeElement.click()
+  }
 
   getUserDetail() {
     this.authService.getUserDetail().subscribe({
       next: (res) => {
-        console.log(res);
-
         this.userDetail = res;
       },
       error: (err) => {
@@ -50,76 +60,112 @@ export class ViewProductComponent implements OnInit {
     });
   }
 
-
-
   initForm() {
     this.productForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
       description: ['', Validators.required],
-      price: [0, [Validators.required, Validators.min(0.01)]] // Price must be greater than 0
+      price: [0, [Validators.required, Validators.min(0.01)]]
     });
   }
 
-  getProducts(page: number,rows:number) {
-    this.productService.getProducts(page,rows).subscribe({
+  getProducts(page: number, rows: number) {
+    this.productService.getProducts(page, rows).subscribe({
       next: (data: any) => {
-        this.products = data.products;
+        this.products = data.totalProducts;
         this.productsTable = data.totalProducts;
         this.currentPage = data.currentPage;
         this.totalPages = data.totalPages;
+        this.productImages = this.products.forEach((img)=>{img.images.split(",")})
       }
     });
   }
 
-
-
-  onRowEditInit(product: Products) {
-
-  }
+  onRowEditInit(product: Products) { }
 
   onRowEditSave(product: Products) {
     this.productService.editProduct(product, product.id).subscribe({
       next: (res) => {
         console.log(res);
-        this.getProducts(this.currentPage,this.cardRows);
+        this.getProducts(this.currentPage, this.cardRows);
       }
-    })
+    });
   }
 
   onRowEditCancel(product: Products, index: number) {
-    this.getProducts(this.currentPage,this.cardRows);
-
-    //   delete this.clonedProducts[product.id as string];
+    this.getProducts(this.currentPage, this.cardRows);
   }
 
-  // Submit method to handle form submission
-  onSubmit(): void {
-    if (this.productForm.valid) {
-      const formData = this.productForm.value;
+  // File validation: Only images (png, jpeg, jpg, gif) are allowed
+  onFileSelect(event: any): void {
+    const files = event.target.files;
+    this.imagePreviews = [];
+    this.selectedImages = [];
+    this.fileTypeError = '';  // Reset error message
 
-      // Call the service to post the data to the backend API
-      this.productService.createProduct(formData).subscribe({
-        next: (response) => {
-          console.log('Product created successfully:', response);
-          // Optionally reset the form after successful submission
-          this.productForm.reset();
-          this.getProducts(this.currentPage,this.cardRows);
-        },
-        error: (error) => {
-          console.error('Error creating product:', error);
+    if (files) {
+      for (let file of files) {
+        const fileType = file.type;
+
+        // Check if the file is an image
+        if (fileType === 'image/png' || fileType === 'image/jpeg' || fileType === 'image/jpg' || fileType === 'image/gif') {
+          this.selectedImages.push(file);  // Store valid image files
+
+          const reader = new FileReader();
+          reader.onload = (e: any) => {
+            this.imagePreviews.push(e.target.result);  // Store the preview URL
+          };
+          reader.readAsDataURL(file);  // Convert the file to DataURL for preview
+        } else {
+          this.fileTypeError = 'Only image files (png, jpg, jpeg, gif) are allowed.';
+          break;
         }
-      });
-    } else {
-      console.log('Form is invalid');
+      }
     }
   }
 
-  onPageChange(event: PageEvent | any): void {
-    this.getProducts(event.page+1,this.cardRows);
+  onSubmit(): void {
+    if (this.productForm.invalid || this.selectedImages.length === 0) {
+      // Display an error message if no images are selected
+      if (this.selectedImages.length === 0) {
+        this.fileTypeError = 'Please select at least one image.';
+      }
+      return;
+    }
+
+    const formData = new FormData() as FormData;
+    formData.append('name', this.productForm.get('name')?.value);
+    formData.append('description', this.productForm.get('description')?.value);
+    formData.append('price', this.productForm.get('price')?.value);
+
+    this.selectedImages.forEach((file) => {
+      formData.append('images', file);  // Correct: append all files under the same key 'images'
+    });
+    
+
+
+    this.uploadProduct(formData);
   }
 
+  uploadProduct(formData: FormData) {
+    this.productService.createProduct(formData).subscribe({
+      next: (response) => {
+        this.productForm.reset();
+        this.imagePreviews = [];  // Reset image previews
+        this.selectedImages = [];  // Reset selected images
+        this.fileTypeError = '';  // Reset file error
+        this.getProducts(this.currentPage, this.cardRows);
+      },
+      error: (error) => {
+        console.error('Error creating product:', error);
+      }
+    });
+  }
 
-  
+  onPageChange(event: PageEvent | any): void {
+    this.getProducts(event.page + 1, this.cardRows);
+  }
+
+  // Getter functions for form controls
   get name() {
     return this.productForm.get('name');
   }
@@ -134,16 +180,4 @@ export class ViewProductComponent implements OnInit {
 }
 
 
-export interface Products {
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-}
 
-export interface PageEvent {
-  first: number;
-  rows: number;
-  page: number;
-  pageCount: number;
-}

@@ -2,22 +2,17 @@
     <div class="grid my-4">
         <div class="col-12 lg:col-6">
             <div class="flex">
-                <div class="flex flex-column w-2 justify-content-between"><img
-                        class="w-full cursor-pointer border-2 border-round border-transparent transition-colors transition-duration-150 ng-star-inserted"
-                        src="assets/images/product-overview-3-1.png"><img
-                        class="w-full cursor-pointer border-2 border-round border-transparent transition-colors transition-duration-150 ng-star-inserted"
-                        src="assets/images/product-overview-3-2.png"><img
-                        class="w-full cursor-pointer border-2 border-round border-transparent transition-colors transition-duration-150 ng-star-inserted"
-                        src="assets/images/product-overview-3-3.png"><img
-                        class="w-full cursor-pointer border-2 border-round border-transparent transition-colors transition-duration-150 ng-star-inserted"
-                        src="assets/images/product-overview-3-4.png"><!----></div>
-                <div class="pl-3 w-10"><img class="w-full" src="assets/images/product-overview-3-4.png"></div>
+                <div class="flex flex-column w-2 justify-content-between">
+                    <img *ngFor="let image of productImages" class="w-full cursor-pointer border-2 border-round border-transparent transition-colors transition-duration-150 ng-star-inserted"
+                    (click)="onImageClick(image)" [class.selected-image]="selectedImage === image"  [src]="apiUrl + image">
+                </div>
+                <div class="pl-3 w-10"><img class="w-full" [src]="apiUrl + selectedImage"></div>
             </div>
         </div>
         <div class="col-12 lg:col-6 py-3 lg:pl-6">
-            <div class="flex align-items-center text-xl font-medium text-900 mb-4">Product Title Placeholder</div>
+            <div class="flex align-items-center text-xl font-medium text-900 mb-4">{{product.name}}</div>
             <div class="flex align-items-center justify-content-between mb-5"><span
-                    class="text-900 font-medium text-3xl block">$120</span>
+                    class="text-900 font-medium text-3xl block">{{product.price | currency:'INR'}}</span>
                 <div class="flex align-items-center"><span class="mr-3"><i
                             class="pi pi-star-fill text-yellow-500 mr-1"></i><i
                             class="pi pi-star-fill text-yellow-500 mr-1"></i><i
@@ -60,36 +55,32 @@
             </div>
             <div class="font-bold text-900 mb-3">Quantity</div>
             <div class="flex flex-column sm:flex-row sm:align-items-center sm:justify-content-between">
-                <p-inputNumber buttonlayout="horizontal" spinnermode="horizontal" min="0"
-                    inputstyleclass="w-3rem text-center" decrementbuttonclass="p-button-text"
-                    incrementbuttonclass="p-button-text" incrementbuttonicon="pi pi-plus"
-                    decrementbuttonicon="pi pi-minus"
-                    class="p-element p-inputwrapper ng-untouched ng-pristine ng-valid p-inputwrapper-filled"><span
-                        class="p-inputnumber p-component p-inputnumber-buttons-horizontal"><input pinputtext=""
-                            inputmode="decimal"
-                            class="p-inputtext p-component p-element w-3rem text-center p-inputnumber-input p-filled"
-                            min="0"><!----><!----><button type="button" pbutton="" tabindex="-1"
-                            class="p-element p-button-icon-only p-button-text p-inputnumber-button p-inputnumber-button-up p-button p-component ng-star-inserted"><span
-                                class="pi pi-plus ng-star-inserted"></span><!----><!----></button><!----><button
-                            type="button" pbutton="" tabindex="-1"
-                            class="p-element p-button-icon-only p-button-text p-inputnumber-button p-inputnumber-button-down p-button p-component ng-star-inserted"><span
-                                class="pi pi-minus ng-star-inserted"></span><!----><!----></button><!----></span></p-inputNumber>
-                                <p-inputNumber  class="p-element p-inputwrapper ng-untouched ng-pristine ng-valid p-inputwrapper-filled"
-        [(ngModel)]="value1" 
-        [style]="{'width': '4rem'}" 
-        [showButtons]="true" 
-        buttonLayout="horizontal"
-        spinnerMode="horizontal" 
-        inputId="horizontal" 
-        decrementButtonClass="p-button-secondary"
-        incrementButtonClass="p-button-secondary" 
-        incrementButtonIcon="pi pi-plus" 
-        decrementButtonIcon="pi pi-minus" />
-                <div class="flex align-items-center flex-1 mt-3 sm:mt-0 ml-0 sm:ml-5"><button pbutton="" pripple=""
-                        label="Add to Cart" class="p-element p-ripple flex-1 mr-5 p-button p-component"><span
-                            class="p-button-label">Add to Cart</span><span class="p-ink"></span></button><i
-                        class="pi text-2xl cursor-pointer pi-heart text-600"></i></div>
+
+                <p-inputNumber class="p-element p-inputwrapper ng-untouched ng-pristine ng-valid p-inputwrapper-filled"
+                    [(ngModel)]="value1" [style]="{'width': '0rem'}" [showButtons]="true" buttonLayout="horizontal"
+                    spinnerMode="horizontal" inputId="horizontal" decrementButtonClass="p-button-secondary"
+                    incrementButtonClass="p-button-secondary" incrementButtonIcon="pi pi-plus"
+                    decrementButtonIcon="pi pi-minus" />
+
             </div>
         </div>
     </div>
 </div>
+
+
+
+<!-- <p-inputNumber buttonlayout="horizontal" spinnermode="horizontal" min="0"
+inputstyleclass="w-3rem text-center" decrementbuttonclass="p-button-text"
+incrementbuttonclass="p-button-text" incrementbuttonicon="pi pi-plus"
+decrementbuttonicon="pi pi-minus"
+class="p-element p-inputwrapper ng-untouched ng-pristine ng-valid p-inputwrapper-filled"><span
+    class="p-inputnumber p-component p-inputnumber-buttons-horizontal"><input pinputtext=""
+        inputmode="decimal"
+        class="p-inputtext p-component p-element w-3rem text-center p-inputnumber-input p-filled"
+        min="0">
+        <button type="button" pbutton="" tabindex="-1"
+        class="p-element p-button-icon-only p-button-text p-inputnumber-button p-inputnumber-button-up p-button p-component ng-star-inserted"><span
+            class="pi pi-plus ng-star-inserted"></span></button><button
+        type="button" pbutton="" tabindex="-1"
+        class="p-element p-button-icon-only p-button-text p-inputnumber-button p-inputnumber-button-down p-button p-component ng-star-inserted"><span
+            class="pi pi-minus ng-star-inserted"></span></button></span></p-inputNumber> -->

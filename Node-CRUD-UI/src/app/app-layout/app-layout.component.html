@@ -2,12 +2,12 @@
 <div class="layout-container p-0 flex flex-column h-full">
     <div class="main-layout flex-grow-1 p-0">
         <header class="w-full" style="position: fixed;z-index: 1;">
-            <app-navbar [hamIcon]="true" (toggleSideNav)="toggleSideNav()"></app-navbar>
+            <app-navbar [hamIcon]="true" (toggleSideNav)="toggleSideNav()" (toggleSideNavMobile)="toggleSideNavMobile()" ></app-navbar>
         </header>
         <div class="flex" style="margin-top: 64px;">
             <aside class="hidden lg:block flex-shrink-0 side-nav transition-all"  style="height: 100%;position: fixed;"
                 [ngClass]="{'collapsed': (!sideNavCollapsed), 'expanded': (sideNavCollapsed)}">
-                <app-side-bar></app-side-bar>
+                <app-side-bar [sidebarVisible]="false" ></app-side-bar>
             </aside>
             <section class="content-area surface-section transition-all" style="width: calc(100vw- 280px);position: absolute;right: 0%;"
                 [ngClass]="{'col-10': sideNavCollapsed, 'col-12': !sideNavCollapsed}">

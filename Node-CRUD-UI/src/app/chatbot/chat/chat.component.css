@@ -1,0 +1,14 @@
+.chat-container {
+  max-height: 90vh;
+  height: 100%;
+}
+
+.user-message,
+.bot-message {
+  max-width: 70%;
+  word-wrap: break-word;
+}
+
+.messages {
+  margin-bottom: 1rem; /* Ensures space above input */
+}

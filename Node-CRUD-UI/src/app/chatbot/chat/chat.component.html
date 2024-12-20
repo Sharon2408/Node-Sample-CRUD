@@ -1,0 +1,38 @@
+<div class="chat-container flex flex-column surface-100 shadow-2 border-round p-3 h-full">
+  <!-- Loader -->
+  <div *ngIf="isLoading" class="loading-spinner align-self-center my-3">Loading...</div>
+  
+  <!-- Chat Messages -->
+  <div class="messages flex-1 overflow-y-auto" #messagesContainer>
+    <div *ngFor="let msg of messages" class="message flex flex-column">
+      <!-- User Message -->
+      <div *ngIf="msg.user" class="user-message align-self-start p-2 border-round bg-blue-50">
+        <strong>User:</strong> {{ msg.user }}
+      </div>
+
+      <!-- Bot Message -->
+      <div *ngIf="msg.bot" class="bot-message align-self-end p-2 border-round bg-green-50 mt-2">
+        <strong>Bot:</strong> {{ msg.bot }}
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll to Bottom Button -->
+  <button
+    class="scroll-to-bottom-btn p-button p-button-rounded p-button-outlined align-self-end mt-3"
+    (click)="scrollToBottom()"
+  >
+    <i class="pi pi-arrow-down"></i>
+  </button>
+
+  <!-- Chat Input -->
+  <div class="chat-input flex align-items-center gap-3 mt-3">
+    <input
+      [(ngModel)]="userInput"
+      class="flex-1 p-inputtext"
+      placeholder="Type a message"
+      (keyup.enter)="sendMessage()"
+    />
+    <button class="p-button" (click)="sendMessage()">Send</button>
+  </div>
+</div>

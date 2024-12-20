@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/services/auth-service.service';
 import { UserDetail } from '../profile/profile/profile.component';
@@ -12,6 +12,8 @@ import { environment } from 'src/environments/environment';
 export class SideBarComponent implements OnInit {
 
   isLogged!: boolean;
+  @Input() sidebarVisible!: boolean;
+
   userDetail: UserDetail | null = {
     id: 0,
     name: '',
@@ -67,4 +69,10 @@ export class SideBarComponent implements OnInit {
     this.router.navigateByUrl('/auth/login');
   }
 
+
+
+
+ 
+
+  
 }

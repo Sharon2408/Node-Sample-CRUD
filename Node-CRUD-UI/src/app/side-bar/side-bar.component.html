@@ -11,11 +11,11 @@
                             class="pi pi-home mr-2"></i><span class="font-medium">Products</span><span class="p-ink"
                             style="height: 248px; width: 248px; top: -107px; left: 8px;"></span></a>
                 </li>
-                <!-- <li><a pripple="" *ngIf="isLogged" routerLink="/user-products"
-                    class="p-ripple p-element flex align-items-center cursor-pointer p-3 hover:bg-bluegray-900 border-round text-bluegray-100 hover:text-bluegray-50 transition-duration-150 transition-colors"><i
-                        class="pi pi-home mr-2"></i><span class="font-medium">View Products</span><span class="p-ink"
-                        style="height: 248px; width: 248px; top: -107px; left: 8px;"></span></a>
-            </li> -->
+                <li><a pripple="" *ngIf="isLogged" routerLink="/chat"
+                        class="p-ripple p-element flex align-items-center cursor-pointer p-3 hover:bg-bluegray-900 border-round text-bluegray-100 hover:text-bluegray-50 transition-duration-150 transition-colors"><i
+                            class="pi pi-home mr-2"></i><span class="font-medium">Chat with AI</span><span class="p-ink"
+                            style="height: 248px; width: 248px; top: -107px; left: 8px;"></span></a>
+                </li>
                 <!-- <li><a pripple=""
                                         class="p-ripple p-element flex align-items-center cursor-pointer p-3 hover:bg-bluegray-900 border-round text-bluegray-100 hover:text-bluegray-50 transition-duration-150 transition-colors"><i
                                             class="pi pi-bookmark mr-2"></i><span
@@ -97,15 +97,14 @@
                                             class="p-ink"
                                             style="height: 264px; width: 264px; top: -94px; left: -28px;"></span></a>
                                 </li> -->
-                <li><a pripple=""  (click)="logout()"
+                <li><a pripple="" (click)="logout()"
                         class="p-ripple p-element flex align-items-center cursor-pointer p-3 hover:bg-bluegray-900 border-round text-bluegray-100 hover:text-bluegray-50 transition-duration-150 transition-colors"><i
                             class="pi pi-sign-out mr-2"></i><span class="font-medium">Sign
                             Out</span><span class="p-ink"
                             style="height: 264px; width: 264px; top: -110px; left: -30px;"></span></a>
                 </li>
-            </ul><a pripple=""  pstyleclass="@prev" enterclass="hidden" pTooltip="Edit Profile"
-                tooltipPosition="right" routerLink="/profile" enteractiveclass="slidedown" leavetoclass="hidden"
-                leaveactiveclass="slideup"
+            </ul><a pripple="" pstyleclass="@prev" enterclass="hidden" pTooltip="Edit Profile" tooltipPosition="right"
+                routerLink="/profile" enteractiveclass="slidedown" leavetoclass="hidden" leaveactiveclass="slideup"
                 class="p-ripple p-element m-3 px-3 py-2 flex align-items-center hover:bg-bluegray-900 border-round cursor-pointer text-bluegray-100 hover:text-bluegray-50 transition-duration-150 transition-colors"><img
                     src="{{apiUrl+userDetail?.profile_image}}" class="mr-2 border-circle"
                     style="width: 28px; height: 28px;"><span class="font-medium">{{userDetail?.name}}</span><span
@@ -113,3 +112,70 @@
         </div>
     </div>
 </div>
+
+
+
+
+
+<p-sidebar  [(visible)]="sidebarVisible">
+    <div id="app-sidebar-2"
+    class="bg-bluegray-800 h-screen lg:block flex-shrink-0 absolute lg:static left-0 top-0 z-1 select-none"
+    style="width: 280px;">
+    <div class="flex flex-column h-full">
+        <div class="flex align-items-center px-5 bg-bluegray-900 flex-shrink-0" style="height: 60px;"><img
+                src="assets/images/blocks/logos/hyper-300.svg" alt="Image" height="30"></div>
+        <div class="overflow-y-auto mt-3">
+            <ul class="list-none p-3 m-0">
+                <li><a pripple="" *ngIf="isLogged" routerLink="/view-products"
+                        class="p-ripple p-element flex align-items-center cursor-pointer p-3 hover:bg-bluegray-900 border-round text-bluegray-100 hover:text-bluegray-50 transition-duration-150 transition-colors"><i
+                            class="pi pi-home mr-2"></i><span class="font-medium">Products</span><span class="p-ink"
+                            style="height: 248px; width: 248px; top: -107px; left: 8px;"></span></a>
+                </li>
+                <li><a pripple="" *ngIf="isLogged" routerLink="/chat"
+                        class="p-ripple p-element flex align-items-center cursor-pointer p-3 hover:bg-bluegray-900 border-round text-bluegray-100 hover:text-bluegray-50 transition-duration-150 transition-colors"><i
+                            class="pi pi-home mr-2"></i><span class="font-medium">Chat with AI</span><span class="p-ink"
+                            style="height: 248px; width: 248px; top: -107px; left: 8px;"></span></a>
+                </li>
+            </ul>
+        </div>
+        <div class="mt-auto" *ngIf="isLogged">
+            <hr class="mb-3 mx-3 border-top-1 border-none border-bluegray-600">
+            <ul class="list-none p-2 m-0 origin-bottom animation-duration-150 overflow-hidden animation-ease-in-out">
+                <!-- <li><a pripple="" routerLink="/profile"
+                        class="p-ripple p-element flex align-items-center  cursor-pointer p-3 hover:bg-bluegray-900 border-round text-bluegray-100 hover:text-bluegray-50 transition-duration-150 transition-colors"><i
+                            class="pi pi-user mr-2"></i><span class="font-medium">Profile</span><span class="p-ink"
+                            style="height: 264px; width: 264px; top: -111px; left: -26px;"></span></a>
+                </li> -->
+                <!-- <li><a pripple=""
+                                        class="p-ripple p-element flex align-items-center cursor-pointer p-3 hover:bg-bluegray-900 border-round text-bluegray-100 hover:text-bluegray-50 transition-duration-150 transition-colors"><i
+                                            class="pi pi-cog mr-2"></i><span class="font-medium">Settings</span><span
+                                            class="p-ink"
+                                            style="height: 264px; width: 264px; top: -94px; left: -28px;"></span></a>
+                                </li> -->
+                <li><a pripple="" (click)="logout()"
+                        class="p-ripple p-element flex align-items-center cursor-pointer p-3 hover:bg-bluegray-900 border-round text-bluegray-100 hover:text-bluegray-50 transition-duration-150 transition-colors"><i
+                            class="pi pi-sign-out mr-2"></i><span class="font-medium">Sign
+                            Out</span><span class="p-ink"
+                            style="height: 264px; width: 264px; top: -110px; left: -30px;"></span></a>
+                </li>
+            </ul><a pripple="" pstyleclass="@prev" enterclass="hidden" pTooltip="Edit Profile" tooltipPosition="right"
+                routerLink="/profile" enteractiveclass="slidedown" leavetoclass="hidden" leaveactiveclass="slideup"
+                class="p-ripple p-element m-3 px-3 py-2 flex align-items-center hover:bg-bluegray-900 border-round cursor-pointer text-bluegray-100 hover:text-bluegray-50 transition-duration-150 transition-colors"><img
+                    src="{{apiUrl+userDetail?.profile_image}}" class="mr-2 border-circle"
+                    style="width: 28px; height: 28px;"><span class="font-medium">{{userDetail?.name}}</span><span
+                    class="p-ink" style="height: 248px; width: 248px; top: -101px; left: 21px;"></span></a>
+        </div>
+    </div>
+</div>
+</p-sidebar>
+
+
+
+
+
+
+
+
+
+
+

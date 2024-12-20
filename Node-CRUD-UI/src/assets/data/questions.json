@@ -1,0 +1,427 @@
+[
+  {
+    "id": "1",
+    "category": "LOCALIZATION",
+    "question": "Which areas are involved with your headaches? Please select all applicable areas.",
+    "options": [
+      "M - migraine",
+      "TMJ - temporomandibular joint",
+      "C - cervicogenic (neck C2/3, C3/4..)",
+      "S - sinus",
+      "T - Tension",
+      "CL - cluster"
+    ],
+    "answerType": "multi-selection"
+  },
+  {
+    "id": "2",
+    "category": "HEADACHE DETAILS",
+    "question": "How long have you had headaches?",
+    "options": [
+      "< 1 week",
+      "< 1 month",
+      "< 3 months",
+      "> 3 months but < 1 year",
+      "Between 1-5 years",
+      "> 5 years"
+    ],
+    "answerType": "single-selection"
+  },
+  {
+    "id": "3",
+    "category": "HEADACHE DETAILS",
+    "question": "Have you had headaches for more than 45 days in the last 3 months?",
+    "options": [ "Yes", "No" ],
+    "answerType": "Yes/No"
+  },
+  {
+    "id": "4",
+    "category": "HEADACHE DETAILS",
+    "question": "Have you had headaches for more than 15 days in the past month?",
+    "options": [ "Yes", "No" ],
+    "answerType": "Yes/No"
+  },
+  {
+    "id": "5",
+    "category": "HEADACHE DETAILS",
+    "question": "How severe is the pain?",
+    "options": [
+      "Mild",
+      "Moderate",
+      "Severe",
+      "Excruciating",
+      "Worst headache of my life"
+    ],
+    "answerType": "single-selection"
+  },
+  {
+    "id": "6",
+    "category": "HEADACHE DETAILS",
+    "question": "Do your headaches interfere with activity (e.g., missing work, school, social or leisure activities)?",
+    "options": [ "Yes", "No" ],
+    "answerType": "Yes/No",
+    "follow_up": {
+      "Yes": {
+        "question": "How many activity days in the past month have been interrupted by your headaches?",
+        "options": [ "< 10 days", "> 10 days" ],
+        "answerType": "single-selection"
+      }
+    }
+  },
+  {
+    "id": "7",
+    "category": "HEADACHE DETAILS",
+    "question": "How long does each individual headache usually last?",
+    "options": [
+      "Seconds",
+      "A few minutes",
+      "< 1 hour",
+      "1-3 hours",
+      "4-8 hours",
+      "8-24 hours",
+      "1-3 Days",
+      "> 3 days"
+    ],
+    "answerType": "single-selection"
+  },
+  {
+    "id": "8",
+    "category": "HEADACHE DETAILS",
+    "question": "Does the pain wake you from sleeping?",
+    "options": [ "Yes", "No" ],
+    "answerType": "Yes/No"
+  },
+  {
+    "id": "9",
+    "category": "HEADACHE DETAILS",
+    "question": "Do you feel nauseous or sick to your stomach with your headaches?",
+    "options": [ "Yes", "No" ],
+    "answerType": "Yes/No"
+  },
+  {
+    "id": "10",
+    "category": "HEADACHE DETAILS",
+    "question": "How would you describe pain associated with the headaches?",
+    "options": [
+      "Constant",
+      "Intermittent",
+      "Throbbing",
+      "Pulsating",
+      "Pounding",
+      "Stabbing",
+      "Burning",
+      "Tingling",
+      "Lightning-like",
+      "Radiating from the neck",
+      "A sudden, severe thunderclap"
+    ],
+    "answerType": "multi-selection"
+  },
+  {
+    "id": "11",
+    "category": "HEADACHE DETAILS",
+    "question": "What makes the headache worse?",
+    "options": [
+      {
+        "id":"1",
+        "question": "Looking at bright lights",
+        "answerType": "Yes/No",
+        "answers": [ "Yes", "No" ]
+      },
+      {
+        "id":"2",
+        "question": "Loud Sounds",
+        "answerType": "Yes/No",
+        "answers": [ "Yes", "No" ]
+
+      },
+      {
+        "id":"3",
+        "question": "Lying Down",
+        "answerType": "Yes/No",
+        "answers": [ "Yes", "No" ]
+      },
+      {
+        "id":"4",
+        "question": "Moving the Head or Neck",
+        "answerType": "Yes/No",
+        "answers": [ "Yes", "No" ]
+      },
+      {
+        "id":"5",
+        "question": "Routine activity at home or work",
+        "answerType": "Yes/No",
+        "answers": [ "Yes", "No" ]
+      },
+      {
+        "id":"6",
+        "question": "Coughing",
+        "answerType": "Yes/No",
+        "answers": [ "Yes", "No" ]
+      },
+      {
+        "id":"7",
+        "question": "Chewing",
+        "answerType": "Yes/No",
+        "answers": [ "Yes", "No" ]
+      },
+      {
+        "id":"8",
+        "question": "Other",
+        "answerType": "freeform"
+      }
+    ],
+    "answerType": "group of Yes/No"
+  },
+  {
+    "id": "12",
+    "category": "HEADACHE DETAILS",
+    "question": "At what point is your headache worse?",
+    "options": [
+      "Intermittently – no apparent pattern",
+      "First thing in the morning",
+      "During the day",
+      "At work",
+      "During physical activity",
+      "In the evening",
+      "During the night",
+      "After eating certain foods",
+      "At points during the menstrual cycle"
+    ],
+    "answerType": "single-selection"
+  },
+  {
+    "id": "13",
+    "category": "HEADACHE DETAILS",
+    "question": "Do any of the following seem to trigger your headaches?",
+    "options": [
+      "Stress",
+      "Working",
+      "Medications",
+      "Certain foods",
+      "Ice cream or cold foods",
+      "Alcohol",
+      "Weather changes",
+      "Physical activity",
+      "Sex",
+      "Certain times during the menstrual cycle",
+      "No particular triggers",
+      "Other"
+    ],
+    "answerType": "multi-selection"
+  },
+  {
+    "id": "14",
+    "category": "HEADACHE DETAILS",
+    "question": "Was your head injured or hit in any way?",
+    "options": [ "Yes", "No" ],
+    "answerType": "Yes/No",
+    "follow_up": {
+      "Yes": {
+        "question": "Please describe the injury/injuries",
+        "answerType": "freeform"
+      }
+    }
+  },
+  {
+    "id": "15",
+    "category": "HEADACHE DETAILS",
+    "question": "Have you had any of the following symptoms recently?",
+    "options": [
+      {
+        "option": "Fevers",
+        "answerType": "Yes/No"
+      },
+      {
+        "option": "Neck pain or stiffness",
+        "answerType": "Yes/No"
+      },
+      {
+        "option": "Unexplained weight loss",
+        "answerType": "Yes/No"
+      },
+      {
+        "option": "Nausea",
+        "answerType": "Yes/No"
+      },
+      {
+        "option": "Vomiting",
+        "answerType": "Yes/No"
+      },
+      {
+        "option": "Abnormal eye movements",
+        "answerType": "Yes/No"
+      },
+      {
+        "option": "Visual changes (zigzags, auras, shimmering lights, etc)",
+        "answerType": "Yes/No"
+      },
+      {
+        "option": "Vision Loss",
+        "answerType": "Yes/No"
+      },
+      {
+        "option": "Blurred or double vision",
+        "answerType": "Yes/No"
+      },
+      {
+        "option": "Pain in the eye",
+        "answerType": "Yes/No"
+      },
+      {
+        "option": "Sinus congestion/stuffiness",
+        "answerType": "Yes/No"
+      },
+      {
+        "option": "Earache or ear pain",
+        "answerType": "Yes/No"
+      },
+      {
+        "option": "Numbness",
+        "answerType": "Yes/No",
+        "follow_up": {
+          "Yes": {
+            "question": "where?",
+            "answerType": "freeform"
+          }
+        }
+      },
+      {
+        "option": "Tingling",
+        "answerType": "Yes/No",
+        "follow_up": {
+          "Yes": {
+            "question": "where?",
+            "answerType": "freeform"
+          }
+        }
+      },
+      {
+        "option": "Scalp Tenderness",
+        "answerType": "Yes/No"
+      },
+      {
+        "option": "While chewing",
+        "answerType": "Yes/No",
+        "follow_up": {
+          "Yes": {
+            "question": "Is it worse chewing hard/solid foods compared to soft foods?",
+            "answerType": "freeform"
+          }
+        }
+      },
+      {
+        "option": "Dizziness or vertigo",
+        "answerType": "Yes/No"
+      },
+      {
+        "option": "New balance/coordination or walking problems",
+        "answerType": "Yes/No"
+      },
+      {
+        "option": "Seizures",
+        "answerType": "Yes/No"
+      },
+      {
+        "option": "Low mood or anxiety",
+        "answerType": "Yes/No"
+      }
+    ],
+    "answerType": "group of Yes/No"
+  },
+  {
+    "id": "16",
+    "category": "TREATMENTS",
+    "question": "What treatments have you tried so far?",
+    "options": [
+      {
+        "option": "Over the Counter Medications",
+        "subOptions": [
+          "Acetaminophen (Tylenol)",
+          "Ibuprofen (Advil or Motrin)",
+          "Naproxen (Aleve)",
+          "Caffeine",
+          "Sinus medications",
+          "Other"
+        ]        
+      },
+      {
+        "option": "Prescribed Medications",
+        "subOptions": [
+          "Narcotics/Opioids",
+          "Triptans",
+          "Beta blockers",
+          "Antidepressants",
+          "ACEI",
+          "Topiramate",
+          "Rigempant/Ubrogepant",
+          "Venlafaxine",
+          "Lasmitidan",
+          "CGRP monoclonal antibodies",
+          "Other"
+        ]
+      },
+      {
+        "option": "Injections/Procedures",
+        "subOptions": [
+          "Botox injections for migraines",
+          "Neck facet joint injections or ablations",
+          "Greater or lesser occipital nerve blocks (GON/LON)",
+          "Sphenopalatine ganglion blocks (SPG)",
+          "Trigeminal nerve block",
+          "Temporal mandibular joint injection (TMJ)",
+          "Other"
+        ]
+      }
+    ],
+    "answerType": "multi-selection with sub-options"
+  },
+  {
+    "id": "17",
+    "category": "TREATMENTS",
+    "follow_up": {
+      "Yes": {
+        "question": "How many days did you take over the counter medication in the last 30 days?",
+        "options": [
+          "< 10 days",
+          "> 10 days"
+        ]
+      }
+    },
+    "answerType": "single-selection"
+  },
+  {
+    "id": "18",
+    "category": "TREATMENTS",
+    "follow_up": {
+      "Yes": {
+        "question": "How many days did you take prescription medication in the last 30 days?",
+        "options": [
+          "< 10 days",
+          "> 10 days"
+        ]
+      }
+    },
+    "answerType": "single-selection"
+  },
+  {
+    "id": "19",
+    "category": "LIFESTYLE",
+    "question": "How often do you have a drink containing alcohol?",
+    "options": [
+      "Never",
+      "Once a month or less",
+      "2-4 times per month",
+      "2-3 times per week",
+      "> 4 days per week"
+    ],
+    "answerType": "single-selection"
+  },
+  {
+    "id": "20",
+    "category": "LIFESTYLE",
+    "question": "How many caffeinated beverages do you have on average per day?",
+    "options": [ "0", "1", "2", "3", "4", "5", ">6" ],
+    "answerType": "single-selection"
+  }
+]

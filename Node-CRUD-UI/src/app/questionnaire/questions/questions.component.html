@@ -1,0 +1,71 @@
+<form [formGroup]="form" (ngSubmit)="submitForm()" class="p-fluid">
+    <div formArrayName="responses">
+        <div *ngFor="let question of visibleQuestions; let i = index" [formGroupName]="i" class="question-block">
+
+            <!-- Display Question -->
+            <p><strong>{{question.id}}</strong>&nbsp;<strong>{{ question.category }}:</strong> {{ question.question }}</p>
+
+            <!-- Single Selection -->
+            <div *ngIf="question.answerType === 'single-selection'">
+                <label *ngFor="let option of question.options">
+                    <input type="radio" [value]="option" formControlName="answer"
+                        (change)="onAnswerChange(question, option)" />
+                    {{ option }}
+                </label>
+            </div>
+
+            <!-- Multi-Selection -->
+            <div *ngIf="question.answerType === 'multi-selection'">
+                <label *ngFor="let option of question.options">
+                    <input type="checkbox" [value]="option" (change)="onSubOptionChange(i, option)" />
+                    {{ option }}
+                </label>
+            </div>
+
+            <div *ngIf="question.answerType === 'multi-selection with sub-options'">
+                <div *ngFor="let option of question.options">
+                    <label>
+                        <input type="checkbox" [value]="option" (change)="onSubOptionChange(i, option)" />
+                        {{ option.option }}
+                    </label>
+                    <br>
+                    <label *ngFor="let suboption of option.subOptions">
+                        <input type="checkbox" [value]="suboption" (change)="onSubOptionChange(i, option)" name="" id="">
+                        {{suboption}}
+                    </label>
+                </div>
+            </div>
+            <!-- Yes/No -->
+            <div *ngIf="question.answerType === 'Yes/No'">
+                <label *ngFor="let option of question.options">
+                    <input type="radio" [value]="option" formControlName="answer"
+                        (change)="onAnswerChange(question, option)" />
+                    {{ option }}
+                </label>
+            </div>
+
+            <!-- Freeform -->
+            <div *ngIf="question.answerType === 'freeform'">
+                <textarea formControlName="answer" placeholder="Enter your answer"></textarea>
+            </div>
+
+            <!-- Group of Yes/No -->
+            <div *ngIf="question.answerType === 'group of Yes/No'">
+                <div *ngFor="let sub of question.options">
+                    <p><strong>{{ sub.question }}</strong></p>
+                    <div *ngIf="sub.answerType === 'Yes/No'">
+                        <label *ngFor="let option of sub.answers">
+                            <input type="radio" [value]="option" formControlName="answer"
+                                (change)="onAnswerChange(question, option)" />
+                                
+                            {{ option }}
+                        </label>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3">Submit</button>
+</form>

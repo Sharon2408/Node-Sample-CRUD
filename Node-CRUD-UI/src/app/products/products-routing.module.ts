@@ -6,6 +6,7 @@ import { ViewSingleProductComponent } from './view-single-product/view-single-pr
 const routes: Routes = [
   { path: '', component: ViewProductComponent },
   { path: 'view-single-product/:id', component: ViewSingleProductComponent },
+  { path: '', redirectTo: '/', pathMatch: 'full' },
 ];
 
 @NgModule({

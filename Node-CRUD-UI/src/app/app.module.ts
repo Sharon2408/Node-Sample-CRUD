@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -26,6 +26,10 @@ import { InputIconModule } from 'primeng/inputicon';
 import { TooltipModule } from 'primeng/tooltip';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { FooterComponent } from './footer/footer.component';
+import { ChatbotModule } from './chatbot/chatbot.module';
+import { SidebarModule } from 'primeng/sidebar';
+import { StyleClassModule } from 'primeng/styleclass';
+import { QuestionnaireModule } from './questionnaire/questionnaire.module';
 
 
 
@@ -59,7 +63,12 @@ import { FooterComponent } from './footer/footer.component';
     BrowserAnimationsModule,
     IconFieldModule,
     InputIconModule,
-    TooltipModule
+    TooltipModule,
+    FormsModule,
+    ChatbotModule,
+    SidebarModule,
+    StyleClassModule,
+    QuestionnaireModule
   ],
   providers: [MessageService,{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }],
   bootstrap: [AppComponent]

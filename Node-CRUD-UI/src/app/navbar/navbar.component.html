@@ -1,12 +1,19 @@
 <div class="">
     <p-menubar styleClass="bg-bluegray-900 m-0" [style]="{height: '64px'}">
         <ng-template pTemplate="start" *ngIf="hamIcon">
-            <div class="flex align-items-center cursor-pointer mb:hidden" (click)="toggleSideNav.emit()">
+            <div class="flex align-items-center cursor-pointer" id="nav-items" (click)="toggleSideNav.emit()">
                 <div class="flex align-items-center px-5 bg-bluegray-900 flex-shrink-0 cursor-pointer"
                     routerLink="/home" style="height: 64px;">
-                    <img src="assets/images/hyper-300.svg" alt="Image" height="30">
+                    <img src="assets/images/hyper-300.svg" class="" alt="Image" height="30">
                 </div>
                 <i class="pi pi-bars" *ngIf="isLogged" style="font-size: 1.3rem;color: #ffff;margin-left: 6em;"></i>
+            </div>
+            <div class="flex align-items-center cursor-pointer" id="nav-mob-items">
+                <div class="flex align-items-center px-5 bg-bluegray-900 flex-shrink-0 cursor-pointer"
+                    routerLink="/home" style="height: 64px;">
+                    <img src="assets/images/hyper-300.svg" class="" alt="Image" height="30">
+                </div>
+               
             </div>
         </ng-template>
         <ng-template pTemplate="end">
@@ -15,10 +22,13 @@
                     [text]="true" [raised]="true" icon="pi pi-user" />
                 <p-button class="flex align-items-center" label="Sign Up" routerLink="/auth/register" *ngIf="!isLogged"
                     [text]="true" [raised]="true" icon="pi pi-user-plus" />
-                <p-iconField iconPosition="left" *ngIf="isLogged">
+                <p-iconField iconPosition="left" *ngIf="isLogged" id="nav-items">
                     <p-inputIcon styleClass="pi pi-search" />
                     <input type="text" class="shadow-none" pInputText placeholder="Search" />
                 </p-iconField>
+                <div (click)="toggleSideNavMobile.emit()">
+                    <i class="pi pi-bars" id="nav-mob-items" *ngIf="isLogged" style="font-size: 1.3rem;color: #ffff;margin-left: 6em;"  ></i>
+                </div>
                 <!-- <p-button class="flex align-items-center" label="Logout"  (click)="logout()" *ngIf="isLogged"  [text]="true" [raised]="true" [rounded]="true"  icon="pi pi-user" /> -->
             </div>
         </ng-template>

@@ -13,6 +13,7 @@ export class NavbarComponent implements OnInit {
   isLogged!: boolean;
 
   @Output() toggleSideNav: EventEmitter<void> = new EventEmitter();
+  @Output() toggleSideNavMobile: EventEmitter<void> = new EventEmitter();
   @Input() hamIcon!:boolean;
   
   constructor(public authService: AuthService, private router: Router) { }
@@ -26,6 +27,10 @@ export class NavbarComponent implements OnInit {
   }
   onToggleSideNav() {
     this.toggleSideNav.emit();
+  }
+
+  onToggleSideNavMobile() {
+    this.toggleSideNavMobile.emit();
   }
 
   logout() {

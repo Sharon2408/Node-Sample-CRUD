@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/services/auth-service.service';
 
@@ -9,9 +9,12 @@ import { AuthService } from 'src/services/auth-service.service';
 })
 export class AppLayoutComponent implements OnInit {
   sideNavCollapsed: boolean = true;
+  sideNav:boolean = false;
   isLogged!: boolean;
 
-  constructor(public authService: AuthService, private router: Router) { }
+  constructor(public authService: AuthService, private router: Router) {
+    this.checkScreenSize();
+  }
 
   ngOnInit(): void {
     this.authService.authStatus$.subscribe({
@@ -23,7 +26,23 @@ export class AppLayoutComponent implements OnInit {
   }
 
   toggleSideNav() {
+    console.log(this.sideNavCollapsed);
     return this.sideNavCollapsed = !this.sideNavCollapsed;
   }
 
+  toggleSideNavMobile() {
+    return this.sideNav = !this.sideNav;
+  }
+
+  @HostListener('window:resize', [])
+  onResize() {
+    this.checkScreenSize();
+  }
+
+  private checkScreenSize(): void {
+    const maxWidth = 992;
+    this.sideNavCollapsed = window.innerWidth >= maxWidth;
+  }
 }
+
+

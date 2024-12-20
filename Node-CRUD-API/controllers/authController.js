@@ -52,7 +52,7 @@ exports.loginUser = async (req, res) => {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
 
-        const token = jwt.sign({ id: user.id,isAdmin:user.isAdmin }, process.env.JWT_SECRET, { expiresIn: '1m' });
+        const token = jwt.sign({ id: user.id,isAdmin:user.isAdmin }, process.env.JWT_SECRET, { expiresIn: '1h' });
         const refreshToken = jwt.sign({ id: user.id }, process.env.JWT_REFRESH_SECRET, { expiresIn: '7d' });
 
         // res.cookie('_ttf', token, { httpOnly: true, secure: true });
@@ -76,7 +76,7 @@ exports.refreshToken = (req, res) => {
 
     jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET, (err, user) => {
         if (err) return res.sendStatus(403);
-        const accessToken = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1m' });
+        const accessToken = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
         res.json({ accessToken });
     });
 };
